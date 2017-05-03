@@ -21,6 +21,16 @@ const createList = (filter) => {
         return filter !== 'completed' ?
           [...state, action.response.result] :
           state;
+      case 'TOGGLE_TODO_SUCCESS':
+        const { result: toggledId, entities } = action.response;
+        const { completed } = entities.todos[toggledId];
+        const shouldRemove = (
+          (completed && filter === 'active') ||
+          (!completed && filter === 'completed')
+        );
+        return shouldRemove ?
+          state.filter(id => id !== toggledId) :
+          state;
 			default:
 				return state;
 		}
