@@ -1,4 +1,27 @@
 import { generateId } from '../utils/helpers';
+import * as api from '../api';
+
+const requestTodos = () => {
+  return {
+    type: 'REQUEST_TODOS'
+  }
+}
+const receiveTodos = (filter, response) => {
+  return {
+    type: 'RECEIVE_TODOS',
+    filter,
+    response
+  }
+}
+export function fetchTodos(filter) {
+  return function (dispatch) {
+    dispatch(requestTodos())
+    return api.fetchTodos(filter)
+      .then(todos =>
+        dispatch(receiveTodos(filter, todos))
+      )
+  }
+}
 
 export const addTodo = (text) => {
   return {
