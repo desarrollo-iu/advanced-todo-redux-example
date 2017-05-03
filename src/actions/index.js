@@ -1,6 +1,5 @@
 import { generateId } from '../utils/helpers';
 
-
 export const addTodo = (text) => {
   return {
     type: 'ADD_TODO',
