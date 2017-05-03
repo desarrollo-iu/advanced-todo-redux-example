@@ -1,8 +1,10 @@
-let nextTodoId = 0;
+import { generateId } from '../utils/helpers';
+
+
 export const addTodo = (text) => {
   return {
     type: 'ADD_TODO',
-    id: (nextTodoId++).toString(),
+    id: generateId(),
     text,
   };
 };
