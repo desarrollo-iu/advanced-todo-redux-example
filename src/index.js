@@ -1,31 +1,11 @@
-//import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import todoApp from './reducers';
-import App from './components/App';
+import configureStore from './configureStore';
+import Root from './components/Root';
 
-const persistedState = {
-  todos: [{
-    id: '0',
-    text: 'Welcome back!',
-    completed: false,
-  }],
-  visibilityFilter: 'SHOW_ACTIVE'
-};
-
-const store = createStore(
-  todoApp,
-  persistedState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-console.log(store.getState());
+const store = configureStore();
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root store={store} />,
   document.getElementById('root')
 );
