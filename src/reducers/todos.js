@@ -1,21 +1,13 @@
 import { combineReducers } from 'redux';
 
 const byId = (state = {}, action) => {
-  switch (action.type) {
-    case 'RECEIVE_TODOS':
-      const nextState = { ...state };
-      action.response.forEach(todo => {
-        nextState[todo.id] = todo;
-      });
-      return nextState;
-    case 'ADD_TODO_SUCCESS':
-      return {
-        ...state,
-        [action.response.id]: action.response,
-      }
-    default:
-      return state;
+  if(action.response) {
+    return {
+      ...state,
+      ...action.response.entities.todos,
+    };
   }
+  return state;
 };
 
 const createList = (filter) => {
@@ -23,11 +15,11 @@ const createList = (filter) => {
 		switch (action.type) {
       case 'RECEIVE_TODOS':
         return filter === action.filter ?
-          action.response.map(todo => todo.id) :
+          action.response.result :
           state;
       case 'ADD_TODO_SUCCESS':
         return filter !== 'completed' ?
-          [...state, action.response.id] :
+          [...state, action.response.result] :
           state;
 			default:
 				return state;

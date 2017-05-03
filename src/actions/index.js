@@ -1,4 +1,6 @@
 import * as api from '../api';
+import { normalize } from 'normalizr';
+import * as schema from './schema';
 
 const requestTodos = () => {
   return {
@@ -16,27 +18,19 @@ export function fetchTodos(filter) {
   return function (dispatch) {
     dispatch(requestTodos())
     return api.fetchTodos(filter)
-      .then(todos =>
-        dispatch(receiveTodos(filter, todos))
-      )
+      .then(todos => {
+        dispatch(receiveTodos(filter, normalize(todos, schema.arrayOfTodos)));
+      });
   }
 }
 
 export const addTodo = (text) => (dispatch) =>
 	api.addTodo(text).then(response => {
-		dispatch({
+    dispatch({
 			type: 'ADD_TODO_SUCCESS',
-			response,
+			response: normalize(response, schema.todo),
 		});
 	});
-
-
-// export const setVisibilityFilter = (filter) => {
-//   return {
-//     type: 'SET_VISIBILITY_FILTER',
-//     filter,
-//   };
-// };
 
 export const toggleTodo = (id) => {
   return {
