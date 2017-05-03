@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 
 const persistedState = {
   todos: [{
-    id: '0',
+    id: 0,
     text: 'Welcome back!',
     completed: false,
   }]
