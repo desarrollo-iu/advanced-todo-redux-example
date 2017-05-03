@@ -1,4 +1,3 @@
-import { generateId } from '../utils/helpers';
 import * as api from '../api';
 
 const requestTodos = () => {
@@ -23,13 +22,14 @@ export function fetchTodos(filter) {
   }
 }
 
-export const addTodo = (text) => {
-  return {
-    type: 'ADD_TODO',
-    id: generateId(),
-    text,
-  };
-};
+export const addTodo = (text) => (dispatch) =>
+	api.addTodo(text).then(response => {
+		dispatch({
+			type: 'ADD_TODO_SUCCESS',
+			response,
+		});
+	});
+
 
 // export const setVisibilityFilter = (filter) => {
 //   return {
