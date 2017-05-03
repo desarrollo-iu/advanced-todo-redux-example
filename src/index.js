@@ -12,12 +12,16 @@ const persistedState = {
     text: 'Welcome back!',
     completed: false,
   }],
+  visibilityFilter: 'SHOW_ACTIVE'
 };
 
 const store = createStore(
   todoApp,
+  persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+console.log(store.getState());
 
 render(
   <Provider store={store}>

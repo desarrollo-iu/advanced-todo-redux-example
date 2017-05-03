@@ -3,6 +3,7 @@ import logo from '../logo.svg';
 import '../App.css';
 import AddTodo from './AddTodo';
 import VisibleTodoList from './VisibleTodoList';
+import Footer from './Footer';
 
 const App = () => (
   <div className="App">
@@ -13,6 +14,7 @@ const App = () => (
     <div className="Todo-App">
       <AddTodo />
       <VisibleTodoList />
+      <Footer />
     </div>
   </div>
 );
